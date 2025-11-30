@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mensaje para Ivonne</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #47000D, #BB6369);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    /* Brillos animados */
+    .brillo {
+        position: absolute;
+        font-size: 12px;
+        animation: flotar 6s infinite ease-in;
+        opacity: 0.8;
+    }
+    @keyframes flotar {
+        0% { transform: translateY(0); opacity: 0.9; }
+        100% { transform: translateY(-800px); opacity: 0; }
+    }
+    .corazon:before {
+        top: -10px;
+        left: 0;
+    }
+    .corazon:after {
+        left: -10px;
+        top: 0;
+    }
+
+    @keyframes flotar {
+        0% { transform: translateY(0) rotate(45deg); opacity: 0.7; }
+        100% { transform: translateY(-800px) rotate(45deg); opacity: 0; }
+    }
+
+    h1 {
+        font-family: Arial;
+        font-size: 45px;
+        font-weight: bold;
+        color: #CC8E8E;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-family: "Brush Script MT", cursive;
+        font-size: 36px;
+        color: #4a2c2a;
+        margin: 0;
+    }
+
+    #fecha {
+        display: block;
+        margin-top: 5px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #4a2c2a;
+    }
+
+    #formulario {
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 20px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        animation: aparecer 1.5s ease;
+    }
+
+    @keyframes aparecer {
+        from { opacity: 0; transform: scale(0.8); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .mensaje {
+        display: none;
+        width: 70%;
+        font-size: 32px;
+        font-family: "Segoe Script", cursive;
+        line-height: 1.6;
+        color: #3d1f1d;
+        background: rgba(255,255,255,0.75);
+        padding: 30px;
+        border-radius: 25px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.25);
+        animation: fadeIn 2s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    button {
+        font-size: 18px;
+        padding: 8px 18px;
+        border: none;
+        border-radius: 10px;
+        background: #d07f8c;
+        color: white;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #470005;
+    }
+
+    /* Botón música */
+    #controlesMusica {
+        display: none;
+        margin-top: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>PARA IVONNE</h1>
+
+<div id="formulario">
+    <h2>Ingresa la contraseña</h2>
+    <span id="fecha">color favorito, sinespacios</span><br><br>
+
+    <input type="password" id="password" placeholder="Contraseña" style="font-size:18px; padding:5px;">
+    <button onclick="acceder()">Entrar</button>
+</div>
+
+<audio id="musica" loop>
+    <source src="instantcrush.mp3" type="audio/mpeg">
+</audio>
+
+<div id="contenido" class="mensaje" style="display:none;">
+    <div id="notaTexto">Le atine a tu color? jsjsjs<br>Hola Ivonne, espero que puedas darme la oportunidad de leer estos mensajes que tengo para ti.<br>Me siento muy triste por lo que pasó y cómo terminó todo entre nosotros, quería pedirte perdón por cómo te hice sentir, y por despedirme cuando lo estabas intentando mas.</div>
+    <br>
+    <button onclick="siguienteNota()" style="margin-top:20px; font-size:20px;">⤳ Siguiente</button>
+</div>
+
+<div id="controlesMusica">
+    <button onclick="toggleMusica()">Pausar / Reproducir música</button>
+</div>
+
+<script>
+// Brillos flotando
+function crearBrillo() {
+    const b = document.createElement("div");
+    b.classList.add("brillo");
+    b.textContent = "✦︎";
+    b.style.left = Math.random() * window.innerWidth + "px";
+    b.style.bottom = "-20px";
+    b.style.animationDuration = (4 + Math.random() * 4) + "s";
+    document.body.appendChild(b);
+    setTimeout(() => b.remove(), 7000);
+}
+setInterval(crearBrillo, 500);
+
+// 10 notas personalizadas
+const notas = [
+    "adios ivonne...",
+    "De verdad gracias por acompañarme en esta vida, eres la persona mas especial a la que eh conocido, me diste muchas cosas que gracias a dios, se quedaran en mi memoria para siempre, gracias por ser ese brillo que necesitaba, y espero tambien haberte ayudado a avanzar en esta vida, con todo el cariño que te tengo por haber sido la persona mas especial que eh tenido quiero decirte mis ultimas palabras",
+    "Como antes habias dicho, terminar con amor lo que empezo con amor, y como no, fuiste lo mas dulce que habia tocado mi vida, apesar de las diferencias que tuvimo, es normal, como toda pareja en este mundo, pero tambien me diste puñados de amor, de una gran calidez que de verdad saco a mi niño interno, has sido la unica persona en sacarme eso y... eres muy especial ivonne ",
+    "como borrarte de mi mente, si fuiste mi primera vez en TODO, no puedo odiarte, jamas despues de todo lo que me regalaste con ese corazon tan calido, tantas memorias que ahora me es imposible no recordarte aun que no quiera, en mi casa, en la calle, en todos lados tengo una memoria de ti, y de lo nuestro, por eso mismo quiero respetarte y vuelvo a pedrite una disculpa por la forma en como terminamos, se que minimo merecias mas que solo lo que te di al final",
+    "De verdad te recordare con todos esos buenos momentos por los que pasamos, por lo que me regalaste y confiaste en su momento, eres de verdad inreible mi niña, me vuelvo a disculpar por la forma en como me despedi, no lo merecias, por eso esto sera mi pequeño intento para no hacerte pensar que pasamos todo esto solo para terminar solo asi, por que vales un final mejor",
+    "Eres una persona increible, eres muy capaz de lograr muchas cosas en la vida, demostraste que puedes con todo, me alegra y me enorgullese haber sido testigo de lo mucho que has crecido, te has vuelto mucho mas fuerte, capaz de resistir todas esas cosas por las que te vi llorar antes, perdoname por no haber podido aguantar mas como tu lo hiciste, pero mi pequeña gigante, eres y seras grande siempre, con un gran valor por todas las cosas en las que pasaste para seguir adelante",
+    "Cumple todos esos sueños a los que aspiras como la persona respetable que eres, pero mas importante, quiero que seas feliz en la vida, si me llego a enterar de ti, quiero saber que hiciste lo imposible para ser una gran persona, deseo saber que pudite crecer siendo toda una mujer, alguien mas bella, alguien muy fuerte, alguien que, rompio todos los esquemas para ser un poquito mejor que ayer hasta el final",
+    "Por eso con todo mi amor, aun que no sepa como es que terminara lo nuestro, aun que no sepa como es que terminaremos en ese ultimo instante en el que nos dejamos de ver, quiero decirte que te amo de la forma mas pura, por quien fuiste conmigo, por todo lo que me diste,de verdad, te amo, gracias de verdad... gracias",
+    "Si alguien interesante se cruza en tu camino, te respeta, te ama y ves un gran valor de el <br>amalo<br> se que estando sola eras alguien muy grande, pero se que encontraras a muy buenas personas en tu vida, con un gran corazon igual que el tuyo <br> espero haber sido ese punto en el que comprendiste cuales eran los pasos para seguir mejorando y avanzando en esta vida, pero no le tengas miedo a ese futuro, todo hazlo de corazon y creeme, dios te dara lo que realmente mereces, por algo pasan las cosas querida, quiero que seas alguien de bien, y si hay una personita que este a tu lado, deseo que sean grandes y apunten alto, de verdad que te deseo la mejor de las vidas, a el mejor compañero de vida, alguien con el que tu niña interior sea feliz y se sienta como la princesa que eres",
+    "Aqui me despido, de verdad, fuiste lo mejor que me paso en esta vida, todos esos sacrificios, las noches de desvelo, platicando o hasta haciendo tareas o trabajos, los ame en cada momento, por que todo era junto a ti, fuiste mi mejor compañera en esta vida y apesar de las heridas, las risas, y el amor, y el dolor, cada memoria contigo la atesorare. <br>Gracias por abrirme tu corazon, y haberme dejado quedarme un poquito, todos estos años en los que estuvimos juntos, fueron de verdad, todo para mi</div>perdoname si es que no es mucho</div> pero igual aprendi muchas cosas por ti, y supe que mis palabras pueden tener un peso, y espero que este mensaje tenga un valor positivo en tu vida, aun que sea muy poco, gracias por haber estado conmigo <br> gracias por ser TU lo fuiste todo en mi vida"
+];
+
+let indiceNota = 0;
+
+function siguienteNota() {
+    indiceNota = (indiceNota + 1) % notas.length;
+    document.getElementById("notaTexto").innerHTML = notas[indiceNota];
+}
+
+// Acceso con contraseña
+function acceder() {
+    const pass = document.getElementById("password").value;
+    const correcta = "rojovino";
+
+    if (pass === correcta) {
+        document.getElementById("formulario").style.display = "none";
+        document.getElementById("contenido").style.display = "block";
+        document.getElementById("controlesMusica").style.display = "block";
+
+        const audio = document.getElementById("musica");
+        audio.play().catch(() => {});
+    } else {
+        alert("Contraseña incorrecta");
+    }
+}
+
+function toggleMusica() {
+    const audio = document.getElementById("musica");
+    if (audio.paused) audio.play(); else audio.pause();
+}
+</script>
+
+</body>
+</html>
+
